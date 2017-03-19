@@ -15,16 +15,22 @@ class ReviewSerializer(serializers.ModelSerializer):
             'email',
             'comment',
             'rating',
-            'created_at'
+            'created_at',
         )
         model = models.Review
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    reviews = serializers.PrimaryKeyRelatedField(
+        many=True,
+        read_only=True,
+    )
+
     class Meta:
         fields = (
             'id',
             'title',
-            'url'
+            'url',
+            'reviews',
         )
         model = models.Course
